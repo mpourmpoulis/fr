@@ -31,9 +31,11 @@ jobs:
 
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: installing framac
         run: |
           opam install depext
           opam depext frama-c
           opam install frama-c
+          eval $(opam env)
+      - name: Assignment
           frama-c -wp  -wp-rte -wp-timeout 60 -wp-verbose 0 count.c -then -report
