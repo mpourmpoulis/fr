@@ -38,4 +38,5 @@ jobs:
           opam install frama-c
           eval $(opam env)
       - name: Assignment
+        run: |
           frama-c -wp  -wp-rte -wp-timeout 60 -wp-verbose 0 count.c -then -report
