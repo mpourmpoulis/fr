@@ -39,4 +39,4 @@ jobs:
 
       - name: Assignment
         run: |
-          frama-c -wp  -wp-rte -wp-timeout 60 -wp-verbose 0 count.c -then -report
+          frama-c -wp -wp-prover alt-ergo -wp-rte -wp-timeout 60 -wp-verbose 0 count.c -then -report
