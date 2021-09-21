@@ -13,7 +13,7 @@ int countSameConsecutive(int N, int x[]) {
 	int best = 0, i = 0;
 	/*@
     loop invariant 0<= i <= N ;
-    loop invariant ( 0<i<N ) ==> x[i]    != x[i-1]
+    loop invariant ( 0<i<N ) ==> x[i]    != x[i-1];
      
     loop assigns i,best ;
     loop variant N-i ;
