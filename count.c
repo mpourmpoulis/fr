@@ -4,7 +4,7 @@
 
 
 /*@ predicate consecutive_best (integer n, integer b, int *x) =
-  @    (\exists integer i,j; 0<=i<=j<=n && j-i=b && consecutive(i,j,x))
+  @    (\exists integer i,j; 0<=i<=j<=n && j-i==b && consecutive(i,j,x))
   		&& (\forall integer i,j; (0<=i<=j<=n && consecutive(i,j,x)) ==> j-i<b);
   @*/
 
