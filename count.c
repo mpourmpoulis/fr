@@ -1,5 +1,5 @@
 /*@ predicate consecutive (integer n, integer i, integer best, int *x) =
-  @   i+best <= n && (\forall integer k ; i <= k < i+best ==> x[i]==x[k]);
+  @   i>=0 && i+best <= n && (\forall integer k ; i <= k < i+best ==> x[i]==x[k]);
   @*/
 
 
@@ -28,7 +28,8 @@ int countSameConsecutive(int N, int x[]) {
     loop invariant 0<= i <= N ;
     loop invariant ( 0<i<N ) ==> x[i]    != x[i-1];
     loop invariant ( 0<=best<=i);
-	loop invariant \exists integer b; b<=i-best && consecutive(N,b,best,x);
+	loop invariant \exists integer b; 0<=b<=i && consecutive(N,b,best,x);
+	loop invariant \forall integer b; (0<=b<=i  && best>0) ==> !consecutive(N,b,best+1,x);
      
     loop assigns i,best ;
     loop variant N-i ;
@@ -37,9 +38,9 @@ int countSameConsecutive(int N, int x[]) {
 	int j = i+1;
 
 	/*@
-    loop invariant i< j <= N ;
-    loop invariant 
-      \forall integer k ; i <= k < j ==> x[i]==x[k] ;
+    loop invariant i+1<= j <= N ;
+    loop invariant consecutive(N,i,j-i,x);
+    loop invariant !consecutive(N,i-1,j-i+1,x);
     loop assigns j ;
     loop variant N-j ;
   	*/
