@@ -1,12 +1,25 @@
+/*@ predicate consecutive (integer n, integer i, integer best, int *x) =
+  @   i+best <= n && (\forall integer k ; i <= k < i+best ==> x[i]==x[k]);
+  @*/
+
+
+
+
+
+
+
+
+
 /*@
   requires \valid_read(x + (0 .. N-1));
-  requires N >= 0 ;
+  requires N >= 1 ;
     
   assigns \nothing ;
   ensures 0 <= \result < N ;
   
-  ensures \exists integer i ; \forall integer j; 0 <= j < \result ==>  x[i+j] == x[i] ;
-  ensures \forall integer i ; 0<= i<N-\result ==> x[i+\result] != x[i] ;
+  ensures \exists integer i ; consecutive(N,i,\result,x);
+  ensures \forall integer i ; !consecutive(N,i,\result+1,x);
+  
 
 */
 int countSameConsecutive(int N, int x[]) {
@@ -14,6 +27,8 @@ int countSameConsecutive(int N, int x[]) {
 	/*@
     loop invariant 0<= i <= N ;
     loop invariant ( 0<i<N ) ==> x[i]    != x[i-1];
+    loop invariant ( 0<=best<=i);
+	loop invariant \exists integer b; b<=i-best && consecutive(N,b,best,x);
      
     loop assigns i,best ;
     loop variant N-i ;
