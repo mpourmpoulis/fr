@@ -53,6 +53,8 @@ int countSameConsecutive(int N, int x[]) {
 /*@ 
 
 lemma same:
+	consecutive(0,0,x);
+lemma same:
 	\forall integer i,int *x; consecutive(i,i,x);
 lemma best_zero:
   \forall int *x; consecutive_best(0,0,x);
