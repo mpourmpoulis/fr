@@ -1,3 +1,14 @@
+/*@
+  requires \valid_read(x + (0 .. N-1));
+  requires N >= 0 ;
+    
+  assigns best,i ;
+  ensures -1 <= \result < len ;
+  
+  ensures \exists integer i ; 0 <= j < \result ==>  x[i+j] == x[i] ;
+  ensures \forall integer i ; 0<= i<N-\result ==> x[i+\result] != x[i] ;
+
+*/
 int countSameConsecutive(int N, int x[]) {
 	int best = 0, i = 0;
 	while (i < N) {
