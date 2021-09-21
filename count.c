@@ -3,9 +3,9 @@
   requires N >= 0 ;
     
   assigns best,i ;
-  ensures -1 <= \result < len ;
+  ensures 0 <= \result < N ;
   
-  ensures \exists integer i ; 0 <= j < \result ==>  x[i+j] == x[i] ;
+  ensures \exists integer i ; \forall integer j; 0 <= j < \result ==>  x[i+j] == x[i] ;
   ensures \forall integer i ; 0<= i<N-\result ==> x[i+\result] != x[i] ;
 
 */
