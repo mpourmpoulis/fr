@@ -1,12 +1,12 @@
-/*@ predicate consecutive (integer n, integer i, integer best, int *x) =
-  @   i>=0 && i+best <= n && (\forall integer k ; i <= k < i+best ==> x[i]==x[k]);
+/*@ predicate consecutive (integer i, integer j, int *x) =
+  @    j>=i>=0 && (\forall integer k ; i <= k < j ==> x[i]==x[k]);
   @*/
 
 
-
-
-
-
+/*@ predicate consecutive_best (integer n, integer b, int *x) =
+  @    (\exists integer i,j; 0<=i<=j<=n && j-i=b && consecutive(i,j,x))
+  		&& (\forall integer i,j; (0<=i<=j<=n && consecutive(i,j,x)) ==> j-i<b);
+  @*/
 
 
 
@@ -17,8 +17,7 @@
   assigns \nothing ;
   ensures 0 <= \result < N ;
   
-  ensures \exists integer i ; consecutive(N,i,\result,x);
-  ensures \forall integer i ; !consecutive(N,i,\result+1,x);
+  ensures consecutive_best(N,\result,x);
   
 
 */
@@ -28,25 +27,44 @@ int countSameConsecutive(int N, int x[]) {
     loop invariant 0<= i <= N ;
     loop invariant ( 0<i<N ) ==> x[i]    != x[i-1];
     loop invariant ( 0<=best<=i);
-	loop invariant \exists integer b; 0<=b<=i && consecutive(N,b,best,x);
-	loop invariant \forall integer b; (0<=b<=i  && best>0) ==> !consecutive(N,b,best+1,x);
+    loop invariant consecutive_best(i,best,x);
      
     loop assigns i,best ;
     loop variant N-i ;
   */
 	while (i < N) {
-	int j = i+1;
-
-	/*@
-    loop invariant i+1<= j <= N ;
-    loop invariant consecutive(N,i,j-i,x);
-    loop invariant !consecutive(N,i-1,j-i+1,x);
-    loop assigns j ;
-    loop variant N-j ;
-  	*/
-	while (j < N && x[j] == x[i]) ++j;
-	if (j-i > best) best = j-i;
+		int j = i+1;
+	
+		/*@
+	    loop invariant i+1<= j <= N ;
+	    loop invariant consecutive(i,j,x);
+	    loop invariant j<N ==> x[j] != x[j-1];
+	    loop assigns j ;
+	    loop variant N-j ;
+	  	*/
+		while (j < N && x[j] == x[i]) ++j;
+		if (j-i > best) best = j-i;
 		i = j;
 	}
 	return best;
 }
+
+/*@ 
+lemma best_zero:
+  \forall int *x; consecutive_best(0,0,x);
+lemma best_one:
+  \forall integer i,int *x; consecutive(0,i,x) ==> consecutive_best(i,i,x);  
+ lemma best_ij_update:
+     \forall integer i, integer j, integer b,int *x;
+	i>0 && x[i]!=x[i-1]&&	j-i>b && consecutive_best(i,b,x)&&consecutive(i,j,x) 
+	==> consecutive_best(j,j-i,x);
+  
+lemma best_ij_no_update:
+ 		\forall integer i, integer j, integer b,int *x;
+	i>0 && x[i]!=x[i-1] &&	j-i<=b && consecutive_best(i,b,x)&&consecutive(i,j,x) 
+	==> consecutive_best(j,b,x);
+
+ 
+
+
+  @*/
