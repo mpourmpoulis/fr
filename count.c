@@ -15,7 +15,7 @@
   requires N >= 1 ;
     
   assigns \nothing ;
-  ensures 0 <= \result < N ;
+  ensures 0 <= \result <= N ;
   
   ensures consecutive_best(N,\result,x);
   
@@ -55,7 +55,7 @@ int countSameConsecutive(int N, int x[]) {
 lemma same0:
 	\forall int *x; consecutive(0,0,x);
 lemma same:
-	\forall integer i,int *x; consecutive(i,i,x);
+	\forall integer i,int *x; i>=0 ==> consecutive(i,i,x);
 lemma best_zero:
   \forall int *x; consecutive_best(0,0,x);
 lemma best_one:
