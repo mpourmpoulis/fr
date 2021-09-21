@@ -38,7 +38,8 @@ int countSameConsecutive(int N, int x[]) {
 		/*@
 	    loop invariant i+1<= j <= N ;
 	    loop invariant consecutive(i,j,x);
-	    loop invariant j<N ==> x[j] != x[j-1];
+	    loop invariant (j<N && x[i] != x[j]) ==> x[j] != x[j-1];
+	    loop invariant (j<N && x[i] == x[j]) ==> x[j] == x[j-1];
 	    loop assigns j ;
 	    loop variant N-j ;
 	  	*/
