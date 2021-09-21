@@ -32,7 +32,9 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: installing framac
-        run: sudo apt-get install frama-c
+        run: |
+          sudo apt-get update -y 
+          sudo apt-get install -y frama-c
           # opam install depext
           # opam depext frama-c
           # opam install frama-c
