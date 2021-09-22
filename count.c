@@ -50,28 +50,3 @@ int countSameConsecutive(int N, int x[]) {
 	return best;
 }
 
-/*@ 
-lemma hh:
-	(\forall integer i,j,int *x; 0<=i<=j<=0 ==> (consecutive(i,j,x)) && j-i<=0);
-lemma same0:
-	\forall int *x; consecutive(0,0,x);
-lemma same:
-	\forall integer i,int *x; i>=0 ==> consecutive(i,i,x);
-lemma best_zero:
-  \forall int *x; consecutive_best(0,0,x);
-lemma best_one:
-  \forall integer i,int *x; consecutive(0,i,x) ==> consecutive_best(i,i,x);  
- lemma best_ij_update:
-     \forall integer i, integer j, integer b,int *x;
-	i>0 && x[i]!=x[i-1]&&	j-i>b && consecutive_best(i,b,x)&&consecutive(i,j,x) 
-	==> consecutive_best(j,j-i,x);
-  
-lemma best_ij_no_update:
- 		\forall integer i, integer j, integer b,int *x;
-	i>0 && x[i]!=x[i-1] &&	j-i<=b && consecutive_best(i,b,x)&&consecutive(i,j,x) 
-	==> consecutive_best(j,b,x);
-
- 
-
-
-  @*/
