@@ -4,7 +4,7 @@
 
 
 /*@ predicate consecutive_best (integer n, integer b, int *x) =
-  @    (\exists integer i,j; 0<=i<=j<=n && j-i==b && consecutive(i,j,x))
+  @    (\exists integer i,j; 0<=i<=n-b  && consecutive(i,i+b,x))
   		&& (\forall integer i,j; (0<=i<=j<=n && consecutive(i,j,x)) ==> j-i<=b);
   @*/
 
@@ -51,8 +51,7 @@ int countSameConsecutive(int N, int x[]) {
 }
 
 /*@ 
-lemma hh:
-	\forall int *x; (\exists integer i,j; 0<=i<=j<=0 && j-i==0 && consecutive(i,j,x));
+
 lemma same0:
 	\forall int *x; consecutive(0,0,x);
 lemma same:
