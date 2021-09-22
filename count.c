@@ -57,7 +57,7 @@ lemma same0:
 lemma same:
 	\forall integer i,int *x; i>=0 ==> consecutive(i,i,x);
 lemma best_zero:
-  \forall int *x; consecutive_best(0,0,x);
+  \forall int *x;consecutive(0,0,x) ==> consecutive_best(0,0,x);
 lemma best_one:
   \forall integer i,int *x; i>0 && consecutive(0,i,x) ==> consecutive_best(i,i,x);  
  lemma best_ij_update:
