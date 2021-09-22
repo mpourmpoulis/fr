@@ -27,6 +27,7 @@ int countSameConsecutive(int N, int x[]) {
     loop invariant 0<= i <= N ;
     loop invariant ( 0<i<N ) ==> x[i]    != x[i-1];
     loop invariant ( 0<=best<=i);
+    loop invariant i>0 ==>best>0;
     loop invariant consecutive_best(i,best,x);
      
     loop assigns i,best ;
