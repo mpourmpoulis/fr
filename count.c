@@ -51,7 +51,8 @@ int countSameConsecutive(int N, int x[]) {
 }
 
 /*@ 
-
+lemma hh:
+	(\forall integer i,j,int *x; 0<=i<=j<=0 ==> (consecutive(i,j,x)) && j-i<=0);
 lemma same0:
 	\forall int *x; consecutive(0,0,x);
 lemma same:
